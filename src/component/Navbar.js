@@ -1,7 +1,6 @@
 import React from "react"
-// import { Navbar } from "react-bootstrap"
+import { Dropdown} from "react-bootstrap"
 import "./Header.css"
-import {Nav} from "react-bootstrap"
 import insta from "./Image/instagram.png"
 import direct from "./Image/direct.png"
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,9 +8,24 @@ import HomeIcon from '@material-ui/icons/Home';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import youtube1 from "./Image/shiv.jpg"
 import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import {useHistory } from 'react-router-dom'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import SyncIcon from '@material-ui/icons/Sync';
 
-const Navber=()=>{
+const Navbar=()=>{
 
+  const history = useHistory();
+
+  const logout = (e) =>{
+    console.log("ok")
+    localStorage.clear();
+    history.push("/");
+
+
+    e.preventDefault();
+  }
   return(
     <>
     <div className="navbar">
@@ -27,6 +41,8 @@ const Navber=()=>{
       <SearchIcon className="searchIcon" />
     </div>
     </div>
+
+    
     
       <div className="navbar__last">
           <li className="navbar_icon"><HomeIcon/></li>
@@ -34,10 +50,26 @@ const Navber=()=>{
           <li className="navbar_icon"><ExploreOutlinedIcon /></li>
           <li className="navbar_icon"><FavoriteBorderIcon/></li>
           <li className="navbar_icon">
-          <span className="avatar_img">
-          <img id="img" class="style-scope yt-img-shadow" className="shiv_imgs" alt="Avatar image" 
+          <Dropdown>
+
+            <Dropdown.Toggle  id="dropdown-basic" className="btn-pri">
+            <span className="avatar_img">
+          <img id="img" className="style-scope yt-img-shadow" className="shiv_imgs" alt="Avatar image" 
            src={youtube1}></img>
           </span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="drop_div">
+              <Dropdown.Item href="#/profile"><AccountCircleIcon/>Profile</Dropdown.Item>
+              <Dropdown.Item href="#/saved"><TurnedInNotIcon />Saved</Dropdown.Item>
+              <Dropdown.Item href="#/settings"><SettingsApplicationsIcon/>Settings</Dropdown.Item>
+              <Dropdown.Item href="#/action-3"><SyncIcon/>Switch Accounts</Dropdown.Item>
+              <hr></hr>
+              <Dropdown.Item href="#/logout" onClick={logout} >Log Out</Dropdown.Item>
+              {/* <button><a href="/jj">Log out</a></button> */}
+
+            </Dropdown.Menu>
+          </Dropdown>
+        
           </li>
        
         </div>
@@ -47,4 +79,4 @@ const Navber=()=>{
     </>
   );
 }
-export default Navber;
+export default Navbar;

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Header.css"
 import avatar from "./Image/avatar.png"
+import {Carousel,Caption} from "react-bootstrap"
 
   
 

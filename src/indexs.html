@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' https://example.com/js/"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; font-src 'self' data: fonts.gstatic.com;"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      enctype="multipart/form-data"
+      action="http://localhost:3000/upload"
+      method="POST"
+    >
+      <input type="file" name="pic" />
+      <input type="submit" value="upload file" />
+    </form>
+  </body>
+</html>

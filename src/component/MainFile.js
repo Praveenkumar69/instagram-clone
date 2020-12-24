@@ -1,21 +1,53 @@
 import React,{useState} from "react"
-// import './App.css';
-import {Button,Card,Main,Form,Image} from "react-bootstrap"
-import img1 from "./Image/02.png"
+import {Redirect,useHistory } from 'react-router-dom'
+import {Form,Image} from "react-bootstrap"
 import img2 from "./Image/03.png"
 import img3 from "./Image/04.png"
 import img4 from "./Image/05.jpg"
+import axios from "axios"
 
 const MainFile=()=>{
 
-  const [Login, setLogin] = useState({});
-  const fromSubmit = (e) =>{
-    console.log(Login)
+  // const [Login, setLogin] = useState({});
+  // const fromSubmit = (e) =>{
+  //   console.log(Login)
 
-    e.preventDefault();
+  //   e.preventDefault();
+  // }
+
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [loginStatus, setloginStatus] = useState("")
+  const history = useHistory();
+
+  const pageLogin=(e)=> {
+    axios.post("http://localhost:3001/login",{
+      email: email,
+      password :password,
+    }).then((resp) => {
+      if(resp.data.massage){
+        setloginStatus(resp.data.massage);
+        console.log(resp.data.massage);
+      }else{
+        console.log("successfully login");
+        localStorage.setItem('login',JSON.stringify(resp.data));
+        history.push("/dashboard");
+      
+      }
+     
+    })
+  e.preventDefault();
+
   }
+  var auth = JSON.parse(localStorage.getItem('login'));
+
   return(
+
     <>
+    {
+      auth ? <Redirect to="/dashboard"></Redirect>:null    
+
+    }
     <main>
         <article className="Main_article">
         <div className="main_image_div">
@@ -28,16 +60,16 @@ const MainFile=()=>{
               <h1 className="insta_id">Instagram Clone</h1>
               <div className="main_div_s2">
                   {/*-----form and form input 1 start ---------*/}
-                <Form className="main_form_s1" onSubmit={fromSubmit} >
+                <Form className="main_form_s1" onSubmit={pageLogin} >
                    <div className="main_form_s2">
                      <div className="main_form_s3">
                         <div className="form_input_f1">
                       <label className="label">
                         {/* <span className="label_span1">Phone number, username</span> */}
                         <Form.Control className="main_input1" type="text" placeholder="Phone number, username, or email" aria-label="Phone number, username, or email" aria-required="true" autoCapitalize="off"
-                        autocorrect="off" maxlength="75" name="username"  
+                         maxlength="75" name="email"  
                         onChange={(e) =>{
-                          setLogin({...Login,username:e.target.value})
+                          setemail(e.target.value)
                         }}
                         />
                       </label>
@@ -49,7 +81,7 @@ const MainFile=()=>{
                          <Form.Control className="main_input1" placeholder="Password" id="password" aria-label="Password" aria-required="true" autoCapitalize="off"
                     autocorrect="off" maxlength="75" name="password"  type="password"
                       onChange={(e)=>{
-                        setLogin({...Login,password:e.target.value})
+                        setpassword(e.target.value)
                       }}
                     />
                          </label>
@@ -57,9 +89,10 @@ const MainFile=()=>{
                     </div>
                     {/*----- login button ---------*/}
                       <div className="main_button_div">
-                        <Button className="main_button_div1" type="submit" name="submit">
+                        {/* <Button className="main_button_div1" type="submit" name="submit">
                           Log In
-                        </Button>
+                        </Button> */}
+                        <button className="main_button_div1 login_btn" type="submit" name="submit">Log In</button>
                       </div>
                     {/*----- OR tag ---------*/}
 
@@ -76,7 +109,14 @@ const MainFile=()=>{
                         <span>Log in with Facebook</span>
                       </button>
                     </div>
-                    <a href="#" className="forgot_pass">Forgot password?</a>
+
+                    { loginStatus ? 
+                      <div className="userErrer">
+                        <p>{loginStatus}</p>
+                      </div> :
+                    ''
+                     }
+                    <a href="" className="forgot_pass">Forgot password?</a>
                      </div>
                    </div>
                 </Form>

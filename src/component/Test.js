@@ -1,80 +1,65 @@
-import React from "react"
+import React,{useState} from "react"
 // import './App.css';
-import {Button,Card,Main,Form} from "react-bootstrap"
-import img1 from "./Image/02.png"
+import {Carousel} from "react-bootstrap"
+// import img2 from "./Image/03.png"
+// import img3 from "./Image/04.png"
+// import img4 from "./Image/05.jpg"
+// import youtube1 from "./Image/shiv.jpg"
+import "./Header.css"
+
+// import axios from "axios"
 
 const Test=()=>{
 
+  const [state, setState] = React.useState([
+    {id:1, image:"/Img/06 (1).jpg",name: "test1"},
+    {id:2, image:"/Img/avatar.png",name: "test2"},
+    {id:3, image:"/Img/06 (2).png",name: "test3"},
+    {id:4, image:"/Img/06 (3).jpg",name: "test4"},
+    {id:5, image:"/Img/06 (8).jpg",name: "test5"},
+    {id:6, image:"/Img/06 (9).jpg",name: "test6"},
+    {id:7, image:"/Img/02.png"    ,name: "test7"},
+    {id:8, image:"/Img/05.jpg"    ,name: "test8"},
+    {id:9, image:"/Img/shiv.jpg"  ,name: "test9"},
+    {id:10,image:"/Img/pubg.jpg"   ,name: "test10"},
+])
   return(
     <>
-    <main>
-        <article className="T_article">
+      <div className="stories">
+           {/* {
+               state.map(user =>(
+                <div className="stories_info" key={user.id}>
+                <div className="stories_img">
+                    <span>
+                        <img src={user.image} />
+                    </span>
+                </div>
+                <div className="stories_name">{user.name}</div>
+            </div>
+               ))
+           } */}
 
+           {
+            state.map(user =>(
+              <div className="stories_info" key={user.id}>
+           <Carousel>
+            <Carousel.Item>
+                <div className="stories_img">
+                <span>
+                    <img src={user.image} />
+                </span>
+                </div>
+            </Carousel.Item>
+           </Carousel>
 
-<Card style={{ width: '26rem' }} className="div25">
-  <Card.Img vardiant="top" src={img1} />
-</Card>
+            </div>
+            ))
+           }
 
-<Card className="f_div1"
-// style={{ width: '18rem' }}
->
-<Card className="f_div2">
-<h1 className="insta">Instagram</h1>
-<Card className="f_div3">
-<Form className="form">
-    <Card className="form_div">
-      <Card className="form_div1">
-        <Card className="form_input">
-        <label className="label">
-        {/* <span className="label_span1">Phone number, username, or email</span> */}
-            <Form.Control className="input1" type="text" placeholder="Phone number, username, or email" aria-label="Phone number, username, or email" aria-required="true" autocapitalize="off"
-            autocorrect="off" maxlength="75" name="username" />
-        </label>
-        </Card>
-      </Card>
-
-      <Card className="form_card1">
-          <Card className="form_card2">
-          <label className="pass_label">
-        {/* <span className="label_span1">Phone number, username, or email</span> */}
-            <Form.Control className="pass_input2" placeholder="Password" aria-label="Password" aria-required="true" autocapitalize="off"
-            autocorrect="off" maxlength="75" name="password" type="password"/>
-        </label>
-          </Card>
-      </Card>
-      <Card className="button_div1">
-          <Button className="button_div2">
-          Log In
-              {/* <Card className="button_div3">
-              Log In
-              </Card> */}
-          </Button>
-      </Card>
-      <div className="o_div">
-        <div className="o_div1"></div>
-        <div className="o_div2">OR</div>
-        <div className="o_div3"></div>
-      </div>
-
-      <div className="facebook_div">
-      <button type="button" className="facebook_div1">
-        <span>=</span>
-        <span>Log in with Facebook</span>
-      </button>
-
-      
-      </div>
-   </Card>
-
-
-</Form>
-</Card>
-</Card>
-  
-</Card>
-
-        </article>
-    </main>    
+        </div>
+        {/* ===================================== */}
+       
+    
     </>
   );
 }
